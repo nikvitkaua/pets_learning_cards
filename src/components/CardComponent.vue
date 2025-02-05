@@ -54,6 +54,7 @@ const toggleCard = () => {
     width: 100%
     height: 100%
     border-radius: 16px
+    min-width: 300px
 
     &.is-flipped
       transform: rotateY(180deg)
