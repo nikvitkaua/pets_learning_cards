@@ -14,14 +14,23 @@
     setup() {
       const questions = ref([]);
 
-      onMounted(async () => {
-        const response = await fetch('/data/python_dev_junior.json');
-        
-        const text = await response.text();;
+      const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      };
 
+      onMounted(async () => {
         try {
+          const response = await fetch('/data/python_dev_junior.json');
+          const text = await response.text();
           const data = JSON.parse(text);
-          questions.value = Object.entries(data).map(([id, item]) => ({ id, ...item }));
+          
+          const parsedQuestions = Object.entries(data).map(([id, item]) => ({ id, ...item }));
+          
+          shuffleArray(parsedQuestions);
+          questions.value = parsedQuestions;
         } catch (error) {
           console.error('Ошибка парсинга JSON:', error);
         }

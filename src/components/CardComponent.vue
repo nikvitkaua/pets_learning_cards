@@ -40,7 +40,7 @@ const toggleCard = () => {
   justify-content: center
   align-items: center
   cursor: grab
-  height: 80vh
+  height: 70vh
 
   &__inner
     transform-style: preserve-3d
