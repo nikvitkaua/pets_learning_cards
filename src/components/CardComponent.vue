@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import ButtonComponent from "./elements/ButtonComponent.vue";
 
 const props = defineProps({
   question: {
@@ -28,8 +29,8 @@ const toggleCard = () => {
         <h2 class="card__question">{{ question.question }}</h2>
         <p class="card__answer">{{ question.answer }}</p>
         <div class="card__btns">
-          <button class="card__correct" @click="emit('answer', true)">Правильно</button>
-          <button class="card__wrong" @click="emit('answer', false)">Неправильно</button>
+          <ButtonComponent class="card__correct" @click="emit('answer', true)">Правильно</ButtonComponent>
+          <ButtonComponent class="card__wrong" @click="emit('answer', false)">Неправильно</ButtonComponent>
         </div>
       </div>
     </div>
@@ -101,22 +102,6 @@ const toggleCard = () => {
     justify-content: space-between
     align-items: center
     gap: 30px
-
-    button
-      border: none
-      outline: none
-      padding: 20px 40px
-      border-radius: 16px
-      font-size: 16px
-      cursor: pointer
-      transition: .4s
-      color: #fff
-
-      &:hover
-        opacity: .7
-
-      @media (max-width: 450px)
-        padding: 10px 20px
 
   &__correct
     background: green
