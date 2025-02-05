@@ -25,6 +25,8 @@ const startInterview = () => {
 
   if (selectedLanguage.value === 'Python' && selectedPosition.value === 'Junior') {
     filePath = '/data/python_dev_junior.json';
+  } else if (selectedLanguage.value === 'JavaScript' && selectedPosition.value === 'Junior' && selectedFramework.value === 'Vue') {
+    filePath = '/data/js_vue_junior.json';
   } else {
     console.log('Cant find the file')
   }
@@ -55,15 +57,15 @@ const startInterview = () => {
       <div v-if="selectedLanguage && !selectedPosition">
         <h3>Оберіть бажану позицію</h3>
         <ButtonComponent @click="selectPosition('Junior')">Junior</ButtonComponent>
-        <ButtonComponent @click="selectPosition('Middle')">Middle</ButtonComponent>
-        <ButtonComponent @click="selectPosition('Senior')">Senior</ButtonComponent>
+        <ButtonComponent disabled @click="selectPosition('Middle')">Middle</ButtonComponent>
+        <ButtonComponent disabled @click="selectPosition('Senior')">Senior</ButtonComponent>
       </div>
 
       <div v-if="selectedPosition && selectedLanguage === 'JavaScript' && !selectedFramework">
         <h3>Оберіть фреймворк</h3>
-        <ButtonComponent @click="selectFramework('React')">React</ButtonComponent>
+        <ButtonComponent disabled @click="selectFramework('React')">React</ButtonComponent>
         <ButtonComponent @click="selectFramework('Vue')">Vue</ButtonComponent>
-        <ButtonComponent @click="selectFramework('Angular')">Angular</ButtonComponent>
+        <ButtonComponent disabled @click="selectFramework('Angular')">Angular</ButtonComponent>
       </div>
 
       <ButtonComponent v-if="selectedFramework || selectedPosition" @click="startInterview">Перейти до питань</ButtonComponent>

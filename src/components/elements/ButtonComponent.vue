@@ -22,6 +22,11 @@
     &:hover
       opacity: .7
 
+    &:disabled
+      color: #ccc
+      cursor: not-allowed
+      opacity: 0.5
+
     @media (max-width: 450px)
       padding: 10px 20px
 </style>
