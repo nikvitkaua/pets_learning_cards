@@ -72,7 +72,6 @@ const toggleCard = () => {
     align-items: center
     color: #fff
     backface-visibility: hidden
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3)
   
   &__front
     z-index: 2
