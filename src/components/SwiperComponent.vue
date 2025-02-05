@@ -1,43 +1,28 @@
-<script>
-  import { ref, onMounted } from 'vue';
+<script setup>
+  import { ref } from "vue";
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import Card from './CardComponent.vue';
 
   import 'swiper/css';
 
-  export default {
-    components: {
-      Swiper,
-      SwiperSlide,
-      Card,
-    },
-    setup() {
-      const questions = ref([]);
+  const props = defineProps({
+    questions: Array,
+  });
 
-      onMounted(async () => {
-        const response = await fetch('/data/python_dev_junior.json');
-        
-        const text = await response.text();;
+  const emit = defineEmits(["answer"]);
 
-        try {
-          const data = JSON.parse(text);
-          questions.value = Object.entries(data).map(([id, item]) => ({ id, ...item }));
-        } catch (error) {
-          console.error('Ошибка парсинга JSON:', error);
-        }
-      });
+  const swiperInstance = ref(null);
 
+  const onSwiperInit = (swiper) => {
+    swiperInstance.value = swiper;
+  };
 
-      const onSwiper = (swiper) => {};
-      const onSlideChange = () => {
-        // console.log('slide change');
-      };
-      return {
-        questions,
-        onSwiper,
-        onSlideChange,
-      };
-    },
+  const handleAnswer = (isCorrect) => {
+    emit("answer", isCorrect);
+
+    if (swiperInstance.value) {
+      swiperInstance.value.slideNext();
+    }
   };
 </script>
 
@@ -46,11 +31,11 @@
     :slides-per-view="1"
     :space-between="50"
     :loop="true"
-    @swiper="onSwiper"
+    @swiper="onSwiperInit"
     @slideChange="onSlideChange"
   >
     <SwiperSlide v-for="question in questions" :key="question.id">
-      <Card :question="question" />
+      <Card :question="question" @answer="handleAnswer" />
     </SwiperSlide>
   </Swiper>
 </template>
