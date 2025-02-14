@@ -16,13 +16,15 @@ const showPopup = ref(true);
 onMounted(() => {
   if (sessionStorage.getItem('interviewData')) {
     const savedData = JSON.parse(sessionStorage.getItem('interviewData'));
-    const { language, position } = savedData;
+    const { language, position, framework } = savedData;
 
     if (language && position) {
       showPopup.value = false;
 
       if (language === 'Python' && position === 'Junior') {
         filePath.value = '/data/python_dev_junior.json';
+      } else if (language === 'JavaScript' && position === 'Junior' && framework === 'Vue') {
+        filePath.value = '/data/js_vue_junior.json';
       }
     }
   }
